@@ -7,7 +7,8 @@ const PASSWORD=process.env.PASSWORD;
 
 const sequelize = new Sequelize(DATABASE,USERNAME,PASSWORD, {
     host: 'localhost',
-    dialect: 'mysql' 
+    dialect: 'mysql' ,
+ 
   });
   try {
      sequelize.authenticate();
@@ -15,5 +16,7 @@ const sequelize = new Sequelize(DATABASE,USERNAME,PASSWORD, {
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
+
+
 
 module.exports=sequelize;

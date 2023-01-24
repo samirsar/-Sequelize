@@ -1,15 +1,19 @@
 const express = require('express')
 const app = express()
 
-const User =require('./models/user')
-require('./models/index')
+const port = process.env.PORT || 5000
+
+require('./db')// conecting to database
 var bodyParser = require('body-parser')
 // var jsonParser = bodyParser.json()
+app.use(express.json());// it's called middleware
 
 app.get('/', function (req, res) {
   res.send('Hello Unorg')
 })
 
-User.sync({ force: true });
-console.log("The table for the User model was just (re)created!");
-app.listen(3000)
+app.use('/user',require('./routes/user'))
+
+app.listen(port,()=>{
+  console.log(`app is running on port ${port}`);
+})

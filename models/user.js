@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize =require('./index')
+const sequelize =require('../db')
 
 const User = sequelize.define('User', {
     item_category_id:{
@@ -46,5 +46,6 @@ const User = sequelize.define('User', {
 
 // `sequelize.define` also returns the model
 console.log(User === sequelize.models.User); // true
+User.sync({force:false})
 
 module.exports=User;
