@@ -12,7 +12,7 @@ app.get('/', function (req, res) {
   res.send('Hello Unorg')
 })
 
-app.use('/user',require('./routes/user'))
+app.use('/ItemCategory',require('./routes/ItemCategory'))
 
 app.listen(port,()=>{
   console.log(`app is running on port ${port}`);

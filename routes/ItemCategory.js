@@ -3,14 +3,13 @@ const express=require('express');
 
 const router=express.Router();
 
-const User=require('../models/user')
+const ItemCategory=require('../models/ItemCategory')
 
 
 // adding data in the database which name is org and into table which is itemcategor
-router.post('/add',async(req,res)=>{
+router.post('/add',(req,res)=>{
      
-         
-         await User.create({
+         ItemCategory.create({
         item_category_id:req.body.item_category_id,
         category_name:req.body.category_name,
         category_name_hindi:req.body.category_name_hindi,
@@ -22,7 +21,6 @@ router.post('/add',async(req,res)=>{
         created_by:req.body.created_by,
         updated_by:req.body.updated_by,
         is_deleted:req.body.is_deleted
-        
     }
 
     ).then((data)=>{
@@ -32,28 +30,29 @@ router.post('/add',async(req,res)=>{
     }).catch(()=>{
         return res.status(400).json({success:false,message:"Error occured during adding the data in database"})
     })
-   
+
+    
     
     
 })
 
 
 //extracting data from database
-router.get('/data',async(req,res)=>{
-      await User.findAll().then((data)=>{
-        res.send({user_data:data})
+router.get('/data',(req,res)=>{
+       ItemCategory.findAll().then((data)=>{
+        res.send({ItemCategory_data:data})
       }).catch(()=>{
         return res.status(404);
       })
       
 })
 
-// updating user data in database
+// updating ItemCategory data in database
 
-router.put('/:id',async(req,res)=>{
+router.put('/:id',(req,res)=>{
 
     let id=req.params.id;
-    await User.update(req.body,{
+     ItemCategory.update(req.body,{
         where:{
             id
         }
@@ -68,10 +67,10 @@ router.put('/:id',async(req,res)=>{
 })
 
 // delete data from database using id
-router.delete('/:id',async(req,res)=>{
+router.delete('/:id',(req,res)=>{
     let id=req.params.id;
 
-    await User.destroy({
+     ItemCategory.destroy({
         where:{
             id
         }

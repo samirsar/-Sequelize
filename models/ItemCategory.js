@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize =require('../db')
 
-const User = sequelize.define('User', {
+const ItemCategory = sequelize.define('ItemCategory', {
     item_category_id:{
         type: DataTypes.STRING,
         allowNull:false,
@@ -45,7 +45,7 @@ const User = sequelize.define('User', {
 });
 
 // `sequelize.define` also returns the model
-console.log(User === sequelize.models.User); // true
-User.sync({force:false})
+console.log(ItemCategory === sequelize.models.ItemCategory); // true
+ItemCategory.sync({force:false})
 
-module.exports=User;
+module.exports=ItemCategory;
