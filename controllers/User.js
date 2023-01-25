@@ -81,9 +81,7 @@ exports.LogIn=(req,res)=>{
             const Data={
                 UserId:user.id
             }
-            const AuthToken = jwt.sign(Data, JWT_sectret,(error)=>{
-                res.status(401).json({success:false,message:"invalid token"});
-            });
+            const AuthToken = jwt.sign(Data, JWT_sectret);
 
             return res.status(200).json({success:true, message:"succeffuly loggin ",AuthToken:AuthToken});
         }
