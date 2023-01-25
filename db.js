@@ -8,6 +8,7 @@ const PASSWORD=process.env.PASSWORD;
 const sequelize = new Sequelize(DATABASE,USERNAME,PASSWORD, {
     host: 'localhost',
     dialect: 'mysql' ,
+    logging: false
  
   });
   try {
