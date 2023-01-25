@@ -11,7 +11,10 @@ const fetchuser=(req,res,next)=>{
     return res.status(401).json({success:false, message:"access denied" });
    }
 
-   const data=jwt.verify(Token,JWT_sectret);
+   const data=jwt.verify(Token,JWT_sectret,(error)=>{
+    return res.status(401).json({success:false, message:"invalid token" })
+
+   });
    
 
    req.user=data;
