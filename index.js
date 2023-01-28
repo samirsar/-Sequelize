@@ -1,8 +1,8 @@
 const express = require('express')
 const app = express()
 
-const port =  5000;
-
+const port =  5002;
+const cors=require('cors');
 require('./db')// conecting to database
 // var bodyParser = require('body-parser')
 // var jsonParser = bodyParser.json()

@@ -1,42 +1,61 @@
 const ItemCategory=require('../models/ItemCategory');
 
 
+const multer  = require('multer')
 
-exports.newItemCategory=(req,res)=>{
-    const {
-        item_category_id,
-        category_name,
-        category_name_hindi,
-        category_image,
-        vehicle_id,
-        priority,
-        created_by,
-        updated_by,
-        is_deleted
-        
 
-    }=req.body;
-
-    ItemCategory.create({
-        item_category_id,
-        category_name,
-        category_name_hindi,
-        category_image,
-        vehicle_id,
-        priority,
-        created_at:new Date(),
-        updated_at:new Date(),
-        created_by,
-        updated_by,
-        is_deleted
+// using multer for uploading file which store the file in Files/Uploads
+const storage = multer.diskStorage({
+    destination:'Files/MyUploads',
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now();
+      cb(null, file.fieldname + '-' + uniqueSuffix+"_samir"+".jpg")
     }
+  })
+  
+const upload = multer({ storage: storage }).single('ItemCategoryImage');
+exports.newItemCategory=(req,res)=>{
+    upload(req, res, function (err) {
+        if (err instanceof multer.MulterError) {
+           return res.send({success:false,message:err});
+        } else if (err) {
+            return res.send({success:false,message:`something went wrong during uploading file ${err}`})
+        }
+        const {
+            item_category_id,
+            category_name,
+            category_name_hindi,
+            vehicle_id,
+            priority,
+            created_by,
+            updated_by,
+            is_deleted
+            
     
-    ).then((data)=>{
+        }=req.body;
         
-        return res.status(200).json({success:true, message:"succeffuly adding new tuple in db" });
     
-    }).catch((error)=>{
-        return res.status(400).json({success:false,message:`${error}`})
+        ItemCategory.create({
+            item_category_id,
+            category_name,
+            category_name_hindi,
+            category_image:req.file.filename,
+            vehicle_id,
+            priority,
+            created_at:new Date(),
+            updated_at:new Date(),
+            created_by,
+            updated_by,
+            is_deleted
+        }
+        
+        ).then((data)=>{
+            
+             return res.status(200).json({success:true, message:"succeffuly adding new tuple in db" });
+        
+        }).catch((error)=>{
+             return res.status(400).json({success:false,message:`${error}`})
+        })
     })
     
 }
