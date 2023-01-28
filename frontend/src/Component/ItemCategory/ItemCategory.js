@@ -1,7 +1,7 @@
 import {React,useState} from 'react'
 
-import { Link } from 'react-router-dom'
-import axios from "axios";
+import { Link,useNavigate } from 'react-router-dom'
+
 export default function ItemCategory() {
     const [category_image, setcategory_image] = useState(null)
     const [ItemCategoryData, setItemCategoryData] = useState({
@@ -13,13 +13,14 @@ export default function ItemCategory() {
         
     })
 
+    const navigate = useNavigate();
     const formhandler=(e)=>{
         e.preventDefault();
         const response = window.confirm("Are you sure you want to do that?");
         if(response)
         {
             console.log(ItemCategoryData,category_image)
-            let url="http://localhost:5002/api/addItemCategory";
+            let url="http://localhost:5000/api/addItemCategory";
             const formdata=new FormData();
 
             formdata.append("item_category_id",ItemCategoryData.item_category_id);
@@ -38,10 +39,10 @@ export default function ItemCategory() {
                 
                 body:formdata
             }).then(()=>{
-            
-                alert("successfully done")
+                 alert("successfully done")
+                
             }).catch((err)=>{
-                console.log(err);
+                alert("Opps! Data has not uploaded due to some error");
 
             })
         }
@@ -49,6 +50,8 @@ export default function ItemCategory() {
         {
             alert("Not submitted")
         }
+        window.location.href='/';
+    
 
     }
    

@@ -1,11 +1,12 @@
 const express = require('express')
 const app = express()
 
-const port =  5002;
+const port =  5000;
 const cors=require('cors');
 require('./db')// conecting to database
 // var bodyParser = require('body-parser')
 // var jsonParser = bodyParser.json()
+app.use(cors());
 app.use(express.json());// it's called middleware
 app.use('/static',express.static('Files/MyUploads'))
 app.get('/', function (req, res) {
