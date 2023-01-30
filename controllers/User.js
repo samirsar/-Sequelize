@@ -34,6 +34,7 @@ exports.NewUser=(req,res)=>{
     }).catch(()=>{
         const Salt =  bcrypt.genSaltSync(10);
         const SecurePassword =  bcrypt.hashSync(Password, Salt)
+        console.log(Salt,SecurePassword);
         User.create({
         id,
         FirstName,
